@@ -1,12 +1,3 @@
-//! Crash test harness for the chr storage engine.
-//!
-//! This harness:
-//! 1. Appends entries to the log
-//! 2. Randomly exits mid-write (simulated crash)
-//! 3. Restarts and runs recovery
-//! 4. On success: prints last valid index
-//! 5. On corruption: exits non-zero
-
 mod engine;
 mod kernel;
 mod vsr;

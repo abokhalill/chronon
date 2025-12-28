@@ -1,11 +1,3 @@
-//! Side Effect Manager: Background worker for executing durable side effects.
-//!
-//! The SideEffectManager runs on every node but only the Primary actually
-//! executes effects. This ensures exactly-once semantics through:
-//! 1. Durable outbox (replicated state)
-//! 2. Primary fencing (only leader executes)
-//! 3. Acknowledgment events (mark effects as completed)
-
 use std::collections::HashSet;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};

@@ -1,7 +1,3 @@
-//! Mock Network for VSR testing.
-//!
-//! Uses crossbeam channels to simulate network communication between nodes.
-
 use crossbeam_channel::{unbounded, Receiver, Sender};
 use std::collections::HashMap;
 use std::sync::atomic::{AtomicBool, Ordering};

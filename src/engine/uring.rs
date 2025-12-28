@@ -1,35 +1,3 @@
-//! io_uring-based log writer for high-performance async I/O.
-//!
-//! This module provides an alternative to the synchronous LogWriter that uses
-//! Linux's io_uring interface for batched, async I/O operations.
-//!
-//! # Design Goals (TigerBeetle-inspired)
-//!
-//! 1. **Zero-copy where possible**: Use registered buffers to avoid kernel copies
-//! 2. **Batched submissions**: Submit multiple operations with single syscall
-//! 3. **Explicit durability**: Use IORING_OP_FSYNC for durability barriers
-//! 4. **Single-threaded**: No locks, deterministic ordering via submission queue
-//!
-//! # Architecture
-//!
-//! ```text
-//! ┌─────────────────────────────────────────────────────────────┐
-//! │                     IoUringWriter                           │
-//! ├─────────────────────────────────────────────────────────────┤
-//! │  Submission Queue (SQ)     │  Completion Queue (CQ)         │
-//! │  ┌─────┬─────┬─────┐      │  ┌─────┬─────┬─────┐           │
-//! │  │WRITE│WRITE│FSYNC│ ───► │  │ CQE │ CQE │ CQE │           │
-//! │  └─────┴─────┴─────┘      │  └─────┴─────┴─────┘           │
-//! └─────────────────────────────────────────────────────────────┘
-//! ```
-//!
-//! # Commit Point Contract
-//!
-//! The commit point is when the FSYNC completion is reaped from the CQ.
-//! - Writes are submitted but NOT durable until FSYNC completes
-//! - FSYNC is submitted with IOSQE_IO_DRAIN to ensure ordering
-//! - committed_index is only advanced after FSYNC CQE is reaped
-
 #[cfg(feature = "io_uring")]
 use io_uring::{opcode, types, IoUring, Probe};
 

@@ -1,5 +1,3 @@
-//! Core step execution logic for the executor.
-
 use std::panic::{self, AssertUnwindSafe};
 
 use crate::engine::reader::ReadError;

@@ -1,10 +1,3 @@
-//! Recovery implementation per recovery.md.
-//!
-//! Recovery is deterministic. Given a disk state, there is only one valid outcome:
-//! 1. Clean Startup: The log is intact and verified.
-//! 2. Tail Repair: The log has a torn write strictly at the end. We truncate it.
-//! 3. Fatal Panic: The log violates an invariant. The node refuses to start.
-
 use std::fs::{File, OpenOptions};
 use std::io::{self, Read, Seek, SeekFrom};
 use std::os::unix::io::AsRawFd;

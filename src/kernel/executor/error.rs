@@ -1,5 +1,3 @@
-//! Executor error types and status enums.
-
 use crate::kernel::traits::SideEffect;
 
 // =============================================================================

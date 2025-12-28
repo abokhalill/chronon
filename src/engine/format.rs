@@ -1,24 +1,3 @@
-//! Log entry format per log_format.md.
-//!
-//! The 80-byte header layout (8-byte aligned):
-//!
-//! | Offset | Field           | Size  | Description                              |
-//! |--------|-----------------|-------|------------------------------------------|
-//! | 0      | header_checksum | 4     | CRC32C of bytes [4..79]                  |
-//! | 4      | payload_size    | 4     | Size of payload in bytes                 |
-//! | 8      | index           | 8     | Monotonic log index                      |
-//! | 16     | view_id         | 8     | Consensus view ID                        |
-//! | 24     | stream_id       | 8     | Routing hint                             |
-//! | 32     | prev_hash       | 16    | Truncated BLAKE3 of entry N-1 (16B)      |
-//! | 48     | payload_hash    | 16    | Truncated BLAKE3 of this payload (16B)   |
-//! | 64     | timestamp_ns    | 8     | Consensus timestamp (nanos since epoch)  |
-//! | 72     | flags           | 2     | Entry type bitmask                       |
-//! | 74     | schema_version  | 2     | Payload schema version                   |
-//! | 76     | reserved        | 4     | Reserved for future use (zeros)          |
-//!
-//! NOTE: Header size is 80 bytes. The timestamp_ns field is assigned by the
-//! Primary and agreed upon by quorum, enabling deterministic replay.
-
 use std::mem;
 
 /// Header size is exactly 80 bytes (8-byte aligned).

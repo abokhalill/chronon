@@ -1,30 +1,3 @@
-//! DurabilityWorker - Background thread for non-blocking log durability.
-//!
-//! This module implements the architectural divorce of data and control planes:
-//! - The control plane (VsrNode) handles heartbeats and message processing
-//! - The data plane (DurabilityWorker) handles blocking disk I/O
-//!
-//! # Design
-//!
-//! The DurabilityWorker owns the LogWriter and runs in a dedicated thread.
-//! Callers submit work via channels and receive completion notifications.
-//!
-//! ```text
-//! ┌─────────────┐     DurabilityRequest      ┌───────────────────┐
-//! │  VsrNode    │ ─────────────────────────► │ DurabilityWorker  │
-//! │ (control)   │                            │   (data plane)    │
-//! │             │ ◄───────────────────────── │                   │
-//! └─────────────┘   DurabilityCompletion     │   owns LogWriter  │
-//!                                            └───────────────────┘
-//! ```
-//!
-//! # Guarantees
-//!
-//! - **Non-blocking enqueue**: `submit_batch` returns immediately
-//! - **Completion notification**: Caller receives (batch_id, result) on completion channel
-//! - **Ordering**: Requests are processed in FIFO order
-//! - **Single-writer**: LogWriter's single-writer invariant is preserved (worker thread owns it)
-
 use std::path::Path;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::mpsc::{self, Receiver, Sender, TryRecvError};

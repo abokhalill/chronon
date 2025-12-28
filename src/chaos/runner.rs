@@ -1,8 +1,3 @@
-//! Threaded Node Runner for Chaos Testing.
-//!
-//! Runs each VsrNode in its own thread, ensuring LogWriter ownership
-//! is maintained within the thread that creates it.
-
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};

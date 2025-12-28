@@ -1,23 +1,3 @@
-//! Executor recovery (Hybrid Boot) implementation.
-//!
-//! # Recovery Invariants (CRITICAL)
-//!
-//! 1. **Snapshot defines the log's valid start index.**
-//!    After recovery, log entries with index < snapshot.last_included_index
-//!    are considered unreachable and MUST NOT be interpreted.
-//!
-//! 2. **Side effects inside snapshot are permanently dropped.**
-//!    The `side_effects_dropped` flag acknowledges this loss.
-//!    Side effects from replayed entries MAY be re-emitted but are NOT
-//!    executed during recovery (idempotency is caller's responsibility).
-//!
-//! 3. **Any chain discontinuity is fatal.**
-//!    If entry[N+1].prev_hash != snapshot.chain_hash, the system halts.
-//!    This prevents silent data corruption from going undetected.
-//!
-//! 4. **Log gaps are fatal.**
-//!    If entry[N+2] exists but entry[N+1] does not, the system halts.
-
 use std::path::{Path, PathBuf};
 
 use crate::engine::reader::{LogReader, ReadError};

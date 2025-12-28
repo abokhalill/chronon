@@ -1,10 +1,3 @@
-//! Nemesis - The Fault Injector.
-//!
-//! A thread that periodically injects faults into the cluster:
-//! - KillPrimary: Stops the current leader
-//! - PartitionQuorum: Isolates the Primary from a majority of Backups
-//! - Heal: Restores all network connectivity
-
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::Arc;
 use std::thread;

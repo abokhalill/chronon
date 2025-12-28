@@ -1,10 +1,3 @@
-//! Chaos Network Interceptor.
-//!
-//! Wraps MockNetwork to inject network faults:
-//! - Packet loss (drop_rate)
-//! - Latency injection (latency_range)
-//! - Network partitions (partition_map)
-
 use std::collections::{HashMap, HashSet};
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Arc, Mutex, RwLock};

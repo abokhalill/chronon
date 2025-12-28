@@ -1,9 +1,3 @@
-//! History and Linearizability Checker.
-//!
-//! Records all client operations and verifies consistency invariants:
-//! - Conservation of Value: Sum(Initial) + Sum(Deposits) - Sum(Withdrawals) == Total Balance
-//! - No Time Travel: Balance never decreases without a withdrawal
-
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 use std::time::Instant;

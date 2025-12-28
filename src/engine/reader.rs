@@ -1,18 +1,3 @@
-//! Read-only log reader for concurrent access.
-//!
-//! # Visibility Contract
-//!
-//! - Readers MUST use `committed_index` (with Acquire ordering) to determine read bounds
-//! - Readers MUST NEVER observe entries beyond `committed_index`
-//! - Readers MUST tolerate concurrent tail truncation (entries may disappear on recovery)
-//! - Readers MUST NOT rely on sentinel for steady-state correctness
-//!
-//! # Thread Safety
-//!
-//! - Single writer, multiple readers
-//! - No locks required
-//! - All visibility governed by Acquire/Release on `committed_index`
-
 use std::fs::File;
 use std::io::{self, Read, Seek, SeekFrom};
 use std::path::Path;

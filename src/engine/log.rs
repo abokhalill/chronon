@@ -1,29 +1,3 @@
-//! Log writer implementation per write_path.md.
-//!
-//! Single-writer, single-threaded append-only log with explicit syscalls.
-//! No async, no tokio, no background threads.
-//!
-//! # Commit Point Contract
-//!
-//! The commit point is the instant `fdatasync(fd)` returns 0.
-//! - **Guarantees:** Durability, logical atomicity, ordering, recoverability
-//! - **Does NOT guarantee:** Visibility to readers (until state update), sentinel presence
-//!
-//! # Visibility Contract
-//!
-//! - Readers may observe durable entries by scanning the file directly
-//! - Readers must never observe uncommitted entries via `committed_index()`
-//! - `committed_index()` returns only indices that have passed the commit point
-//!
-//! # Forbidden States (enforced at runtime)
-//!
-//! - F1: Sentinel without durable entry (prevented by write ordering)
-//! - F3: Reader sees uncommitted index (prevented by committed_index tracking)
-//! - F4: Forked prev_hash (prevented by single-writer + thread ID check)
-//! - F5: Gapless violation (prevented by sequential index assignment)
-//! - F6: Memory ahead of disk (prevented by commit point ordering)
-//! - F7: Sentinel wrap (prevented by u64 sentinel format)
-
 use std::fs::File;
 use std::io;
 use std::os::unix::io::{AsRawFd, FromRawFd};

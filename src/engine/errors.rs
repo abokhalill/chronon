@@ -1,8 +1,3 @@
-//! Error types for the Chronon storage engine.
-//!
-//! Errors are classified as either Fatal (unrecoverable) or Recoverable.
-//! Fatal errors cause immediate panic per invariants.md.
-
 use std::fmt;
 use std::io;
 

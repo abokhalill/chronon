@@ -1,32 +1,3 @@
-//! Kernel Executor runtime.
-//!
-//! The single-writer runtime that feeds committed log entries into
-//! deterministic application logic.
-//!
-//! # Authority & Loss Invariants
-//!
-//! ## Snapshot as Primary Authority
-//!
-//! Once log truncation occurs, the snapshot becomes the **single source of truth**
-//! for the log start index. The log MUST NOT be interpreted without first loading
-//! the snapshot that covers its prefix.
-//!
-//! ## Side Effect Loss Boundary
-//!
-//! Side effects for entries with index <= `snapshot.last_included_index`:
-//! - Are considered **completed** or **externally reconciled**
-//! - **MUST NOT** be re-executed on recovery
-//! - The `side_effects_dropped` flag in the snapshot acknowledges this loss
-//!
-//! ## Recovery Contract
-//!
-//! On recovery:
-//! 1. Load latest valid snapshot
-//! 2. Restore state from snapshot
-//! 3. Replay log from `snapshot.last_included_index + 1`
-//! 4. Side effects from replay MAY be re-executed (idempotency required)
-//! 5. Side effects from snapshot-covered entries are LOST
-
 mod error;
 mod recovery;
 mod snapshot_ops;

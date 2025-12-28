@@ -1,7 +1,3 @@
-//! Reference deterministic application: Bank.
-//!
-//! A simple bank with deposit/withdraw operations to prove the architecture works.
-
 use std::collections::HashMap;
 use std::fmt;
 

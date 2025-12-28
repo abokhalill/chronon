@@ -1,12 +1,3 @@
-//! Kernel module: execution runtime for deterministic state machines.
-//!
-//! The Kernel sits on top of the Storage Engine and provides:
-//! - Deterministic execution of application logic
-//! - Side effect isolation
-//! - Panic handling (poison pill)
-//! - Snapshot creation and persistence
-//! - Durable outbox for exactly-once side effect delivery
-
 pub mod bank;
 pub mod executor;
 pub mod side_effect_manager;

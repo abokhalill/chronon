@@ -1,8 +1,3 @@
-//! Quorum Tracker for VSR replication.
-//!
-//! Tracks PrepareOk responses and determines when quorum is reached.
-//! Uses a fixed-size bitset instead of HashSet for O(1) operations and cache efficiency.
-
 use std::collections::HashMap;
 
 /// Maximum supported cluster size (64 nodes).

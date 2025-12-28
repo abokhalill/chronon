@@ -1,12 +1,3 @@
-//! Fault injection utilities for testing storage engine correctness.
-//!
-//! These utilities simulate real-world failure modes that the normal
-//! crash test harness cannot detect:
-//! - Partial writes (torn writes within an entry)
-//! - Checksum poisoning (mid-log corruption)
-//! - Write reordering (out-of-order persistence)
-//! - Zero-hole injection (sparse file artifacts)
-
 use std::fs::{File, OpenOptions};
 use std::io::{self, Read, Seek, SeekFrom, Write};
 use std::path::Path;

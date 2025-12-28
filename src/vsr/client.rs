@@ -1,9 +1,3 @@
-//! Client Gateway and Request Idempotency Layer.
-//!
-//! Provides:
-//! - SessionMap for exactly-once semantics
-//! - chrClient for transparent leader discovery and retry
-
 use std::collections::HashMap;
 use std::time::{Duration, Instant};
 

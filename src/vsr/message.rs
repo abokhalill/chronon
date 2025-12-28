@@ -1,7 +1,3 @@
-//! VSR Message Protocol.
-//!
-//! Defines the message types used for replication between nodes.
-
 use serde::{Deserialize, Serialize};
 
 /// A prepared entry for batch replication.

@@ -1,7 +1,3 @@
-//! VSR Node implementation.
-//!
-//! Implements both Primary and Backup roles for steady-state replication.
-
 use std::collections::HashMap;
 use std::path::Path;
 use std::sync::atomic::{AtomicUsize, Ordering};

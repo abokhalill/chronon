@@ -1,5 +1,3 @@
-//! Snapshot operations for the executor.
-
 use std::path::Path;
 
 use crate::kernel::snapshot::SnapshotManifest;

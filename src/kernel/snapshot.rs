@@ -1,34 +1,3 @@
-//! Snapshot creation and persistence.
-//!
-//! # Authority & Loss Invariants
-//!
-//! ## Snapshot as Primary Authority
-//!
-//! Once log truncation occurs, the snapshot becomes the **single source of truth**
-//! for the log start index. The log MUST NOT be interpreted without first loading
-//! the snapshot that covers its prefix.
-//!
-//! ## Side Effect Loss Boundary
-//!
-//! Side effects for entries with index <= `snapshot.last_included_index`:
-//! - Are considered **completed** or **externally reconciled**
-//! - **MUST NOT** be re-executed on recovery
-//! - The `side_effects_dropped` flag acknowledges this loss
-//!
-//! ## Recovery Contract
-//!
-//! On recovery:
-//! 1. Load latest valid snapshot
-//! 2. Restore state from snapshot
-//! 3. Replay log from `snapshot.last_included_index + 1`
-//! 4. Side effects from replay MAY be re-executed (idempotency required)
-//! 5. Side effects from snapshot-covered entries are LOST
-//!
-//! ## No Enforcement Yet
-//!
-//! These invariants are documented but not yet enforced in code.
-//! Future work will add runtime checks and recovery logic.
-
 use std::fs::{self, File};
 use std::io::{Read, Write};
 use std::path::Path;
