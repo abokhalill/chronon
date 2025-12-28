@@ -8,9 +8,6 @@ use crate::kernel::traits::{
     SnapshotStream,
 };
 
-// =============================================================================
-// BANK STATE
-// =============================================================================
 
 /// Bank state: mapping of user -> balance, plus durable outbox.
 #[derive(Clone, Debug, Default)]
@@ -44,9 +41,6 @@ impl BankState {
     }
 }
 
-// =============================================================================
-// BANK EVENTS
-// =============================================================================
 
 /// Bank events.
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -79,9 +73,6 @@ pub enum BankEvent {
     PoisonPill,
 }
 
-// =============================================================================
-// BANK ERROR
-// =============================================================================
 
 /// Bank errors (deterministic).
 #[derive(Clone, Debug)]
@@ -122,10 +113,6 @@ impl fmt::Display for BankError {
 
 impl std::error::Error for BankError {}
 
-// =============================================================================
-// BANK QUERY
-// =============================================================================
-
 /// Bank query requests.
 #[derive(Clone, Debug)]
 pub enum BankQuery {
@@ -146,9 +133,6 @@ pub enum BankQueryResponse {
     AllBalances(HashMap<String, u64>),
 }
 
-// =============================================================================
-// BANK APPLICATION
-// =============================================================================
 
 /// The Bank application.
 pub struct BankApp;
